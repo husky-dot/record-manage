@@ -51,6 +51,13 @@ export const constantRouterMap = [
         meta: { title: '档案信息管理', icon: 'table' }
       },
       {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/document-edit/index'),
+        name: 'EditArticle',
+        meta: { title: '文章详情', noCache: true },
+        hidden: true
+      },
+      {
         path: 'user-manage',
         name: 'UserManage',
         component: () => import('@/views/user-manage/index'),
