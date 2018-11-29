@@ -21,15 +21,17 @@
       <div class="ft-right">
         <!-- 待处理 流转中 -->
         <template v-if="content.status === 1 || content.status === 3">
-          <i class="el-icon-news" title="转发"/>
-          <i class="el-icon-tickets" title="日志"/>
-          <i class="el-icon-edit-outline" title="编辑"/>
+          <i class="el-icon-news" title="转发" @click="handleTransmit" />
+          <i class="el-icon-tickets" title="日志" @click="handleLog" />
+          <router-link :to="'/manage/edit/'+content.id" tag="a" target="_blank" class="content">
+            <i class="el-icon-edit-outline" title="编辑"/>
+          </router-link>
         </template>
         <!-- 已发布 -->
         <template v-if="content.status === 2">
-          <i class="el-icon-news" title="转发"/>
+          <i class="el-icon-news" title="转发" @click="handleTransmit" />
         </template>
-        <i class="el-icon-delete" title="删除"/>
+        <i class="el-icon-delete" title="删除" @click="handleDel"/>
       </div>
     </div>
   </div>
@@ -61,8 +63,18 @@ export default {
   data() {
     return {
     }
+  },
+  methods: {
+    handleTransmit() {
+      this.$emit('handleTransmit')
+    },
+    handleLog() {
+      this.$emit('handleLog')
+    },
+    handleDel() {
+      this.$emit('handleDel')
+    }
   }
-
 }
 </script>
 

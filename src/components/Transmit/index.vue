@@ -49,26 +49,26 @@ export default {
           id: 4,
           label: '主任',
           children: [{
-            id: 9,
+            id: 16,
             label: '小智'
           }]
         },
         {
-          id: 4,
+          id: 66,
           label: '副主任',
           children: [
             {
-              id: 9,
+              id: 19,
               label: '小智'
             }
           ]
         },
         {
-          id: 4,
+          id: 5,
           label: '工作人员',
           children: [
             {
-              id: 9,
+              id: 10,
               label: '陈小龙'
             },
             {

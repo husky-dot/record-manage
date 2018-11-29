@@ -1,6 +1,7 @@
 <!-- -->
 <template>
   <div class="page">
+    <!-- 头部搜索 -->
     <filter-header />
     <div class="btns-wrapper">
       <el-button type="primary" size="mini">新建文件</el-button>
@@ -19,7 +20,11 @@
         <card
           v-for="item of list"
           :key="item.id"
-          :content="item" />
+          :content="item"
+          @handleTransmit="transmitDialog = true"
+          @handleLog="operLogDialog = true"
+          @handleDel="delDialog = true"
+        />
       </div>
       <div v-if="!activeList" class="list2-container">
         <el-table :data="list" style="width: 100%" border >
@@ -27,7 +32,9 @@
           <el-table-column label="时间" width="160" prop="dateTime" />
           <el-table-column label="文件名称">
             <template slot-scope="scope">
-              <a href="#" class="app-ellipse-1 blue">{{ scope.row.title }}</a>
+              <router-link :to="'/manage/edit/'+scope.row.id" tag="a" target="_blank" class="app-ellipse-1 blue">
+                {{ scope.row.title }}
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column prop="source" label="来源" width="100" />
@@ -42,14 +49,14 @@
             <template slot-scope="scope">
               <template v-if="scope.row.status ===2">
                 <el-button type="text" size="mini">作废</el-button>
-                <el-button type="text" size="mini">转发</el-button>
+                <el-button type="text" size="mini" @click="transmitDialog = true">转发</el-button>
               </template>
               <template v-if="scope.row.status ===3">
                 <el-button type="text" size="mini">编辑</el-button>
-                <el-button type="text" size="mini">操作日志</el-button>
-                <el-button type="text" size="mini">转发</el-button>
+                <el-button type="text" size="mini" @click="operLogDialog = true">操作日志</el-button>
+                <el-button type="text" size="mini" @click="transmitDialog = true">转发</el-button>
               </template>
-              <el-button v-if="scope.row.status !=2 " type="text" size="mini">移除</el-button>
+              <el-button v-if="scope.row.status !=2 " type="text" size="mini" @click="delDialog = true">移除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -65,15 +72,22 @@
     />
     <!-- 转发文件 -->
     <transmit :show.sync="transmitDialog" title="转发文件" />
+    <!-- 操作日志 -->
+    <operator-log :show.sync="operLogDialog" title="操作日志" />
+    <!-- 删除确认 S -->
+    <confirm-dialog :show.sync="delDialog" :content="'确定删除？'" @handleConfirm="handleDelete()" />
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { getList } from '@/api/document'
-import FilterHeader from './components/FilterHeader/index'
+import { success } from '@/utils/message'
+import FilterHeader from '@/components/FilterHeader/index'
 import Card from './components/Card/index'
 import Pagination from '@/components/Pagination/index'
 import Transmit from '@/components/Transmit/index'
+import OperatorLog from './components/OperatorLog/index'
+import ConfirmDialog from '@/components/ConfirmDialog'
 export default {
   filters: {
     formatStatus(value) {
@@ -93,13 +107,17 @@ export default {
     FilterHeader,
     Card,
     Pagination,
-    Transmit
+    Transmit,
+    OperatorLog,
+    ConfirmDialog
   },
   data() {
     return {
       list: [],
       activeList: true,
       transmitDialog: false, // 转发文件
+      operLogDialog: false, // 操作日志
+      delDialog: false, // 删除
       total: 0,
       searchParams: {
         currentPage: 1,
@@ -123,6 +141,11 @@ export default {
     onPaginatorSearch() {},
     toggleList(value) {
       this.activeList = value;
+    },
+    // 确认删除
+    handleDelete() {
+      success('删除成功!');
+      this.delDialog = false;
     }
   }
 }
