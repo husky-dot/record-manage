@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <img src="/src/assets/avatar.jpg">
+      <img :src="imgSrc">
       <router-link :to="'/manage/edit/'+content.id" tag="a" target="_blank" class="content">
         <div class="title-wrapper">
           <div class="title-left app-ellipse-1">{{ content.title }}</div>
@@ -62,6 +62,7 @@ export default {
   },
   data() {
     return {
+      imgSrc: require('../../../../assets/avatar.jpg')
     }
   },
   methods: {

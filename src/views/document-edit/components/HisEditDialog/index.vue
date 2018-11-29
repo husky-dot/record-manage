@@ -9,7 +9,7 @@
     >
       <div class="list">
         <div v-for="item in [1,2]" :key="item" class="item">
-          <img class="avatar" src="/src/assets/avatar.jpg">
+          <img :src="require('@assess/avatar.jpg')" class="avatar">
           <div class="name-and-date">
             <span class="name">小智</span>
             <span class="date">2018-10-11 12:30</span>
@@ -21,7 +21,7 @@
             第六条水运工程施工单位应当定期组织安全生产管理人员，工程技术人员和其他相关人员排查工程项目的重大事故隐.....
           </div>
           <div class="preview-img" @click="innerVisible = true">
-            <img src="/src/assets/avatar.jpg">
+            <img :src="require('@assess/avatar.jpg')">
             <p @click="innerVisible = true">查看快照</p>
           </div>
         </div>
@@ -34,7 +34,7 @@
       class="pre-dialog"
       append-to-body>
       <div class="preview-wrapper">
-        <img src="/src/assets/avatar.jpg">
+        <img :src="require('@assess/avatar.jpg')">
       </div>
     </el-dialog>
   </div>

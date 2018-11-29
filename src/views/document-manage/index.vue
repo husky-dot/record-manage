@@ -80,7 +80,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getList } from '@/api/document'
+const appData = require('../../../static/data/documentlist.json')
 import { success } from '@/utils/message'
 import FilterHeader from '@/components/FilterHeader/index'
 import Card from './components/Card/index'
@@ -113,12 +113,12 @@ export default {
   },
   data() {
     return {
-      list: [],
+      list: appData.data,
       activeList: true,
       transmitDialog: false, // 转发文件
       operLogDialog: false, // 操作日志
       delDialog: false, // 删除
-      total: 0,
+      total: appData.data.length,
       searchParams: {
         currentPage: 1,
         pageSize: 10
@@ -126,18 +126,18 @@ export default {
     }
   },
   mounted() {
-    this.getList();
+    // this.getList();
   },
   methods: {
-    getList() {
-      getList().then(res => {
-        const { code, data } = res;
-        if (code === 20000) {
-          this.list = data;
-          this.total = this.list.length;
-        }
-      })
-    },
+    // getList() {
+    //   getList().then(res => {
+    //     const { code, data } = res;
+    //     if (code === 20000) {
+    //       this.list = data;
+    //       this.total = this.list.length;
+    //     }
+    //   })
+    // },
     onPaginatorSearch() {},
     toggleList(value) {
       this.activeList = value;

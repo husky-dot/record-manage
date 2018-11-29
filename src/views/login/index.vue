@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div :style="{'background': `url(${bg}) no-repeat center`}" class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <h3 class="title">档案管理系统</h3>
       <el-form-item prop="username">
@@ -57,6 +57,7 @@ export default {
       }
     }
     return {
+      bg: require('../../assets/bg.jpg'),
       loginForm: {
         username: 'admin',
         password: 'admin'
@@ -148,8 +149,8 @@ $light_gray:#eee;
   position: fixed;
   height: 100%;
   width: 100%;
-  background:url(/src/assets/bg.jpg) no-repeat center;
-  background-size:100%;
+  /* background:url(/src/assets/bg.jpg) no-repeat center; */
+  background-size:100% !important;
   .login-form {
     position: absolute;
     left: 0;
