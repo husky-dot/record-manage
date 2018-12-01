@@ -4,7 +4,7 @@
       <el-button @click="editHisDialog = true">查看修改记录</el-button>
       <el-button @click="transmitDialog = true">转发</el-button>
       <el-button @click="powerDialog = true">权限</el-button>
-      <el-button type="primary" @click="showEdit = false">保存</el-button>
+      <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="success">发布</el-button>
     </sticky>
     <div class="article-time">
@@ -15,9 +15,9 @@
       <quill-editor v-show="showEdit" ref="myQuillEditor" v-model="content" :options="editorOption" class="editer" @ready="onEditorReady($event)" />
     </div>
     <!-- 固定右边 -->
-    <fix-right @handleEdit="showEdit = true" />
+    <fix-right @handleEdit="handleEdit" />
     <!-- 显示历史记录 -->
-    <his-edit-dialog :show.sync="editHisDialog" title="文档历史修订记录" />
+    <his-edit-dialog :show.sync="editHisDialog" :list="hisList" title="文档历史修订记录" />
     <!-- 转发文件 -->
     <transmit :show.sync="transmitDialog" title="转发文件" />
     <!-- 文件权限分配 -->
@@ -50,6 +50,8 @@ export default {
       editHisDialog: false, // 修改记录弹框
       transmitDialog: false, // 转发文件
       powerDialog: false, // 文件权限
+      hisList: [1],
+      isEediting: false,
       content: `<div id="u520" class="ax_default _文本段落">
               <div id="u520_div" class=""></div>
               <div id="u520_text" class="text ">
@@ -65,7 +67,20 @@ export default {
     }
   },
   methods: {
-    onEditorReady(editor) {}
+    onEditorReady(editor) {},
+    // 点击编辑
+    handleEdit() {
+      this.showEdit = true;
+      this.isEediting = true;
+    },
+    // 点击保存
+    handleSave() {
+      this.showEdit = false;
+      if (this.isEediting) {
+        this.hisList.push('1');
+        this.isEediting = false;
+      }
+    }
   }
 }
 </script>
@@ -95,7 +110,6 @@ export default {
   .div-content{
     max-width: 1100px;
     margin: 0 auto;
-    text-align: center;
     line-height: 27px;
   }
 </style>

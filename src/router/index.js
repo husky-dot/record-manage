@@ -40,8 +40,9 @@ export const constantRouterMap = [
   {
     path: '/manage',
     component: Layout,
+    alwaysShow: true,
     redirect: '/manage/document-manage',
-    name: 'Example',
+    name: 'manage',
     meta: { title: '公文档案管理', icon: 'example' },
     children: [
       {

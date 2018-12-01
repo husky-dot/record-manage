@@ -7,7 +7,7 @@
           <span>组织结构</span>
         </div>
         <div>
-          <el-input v-model="filterText" size="small" placeholder="输入关键字进行过滤" />
+          <el-input v-model="filterText" size="small" placeholder="请输入用户名称" />
           <el-tree
             ref="tree1"
             :data="data1"
@@ -24,7 +24,7 @@
     <el-main>
       <el-container>
         <el-header style="border-bottom:1px solid #f2f2f2">
-          <el-button type="primary" size="mini">主要按钮</el-button>
+          <el-button type="primary" size="mini">添加节点</el-button>
           <el-button size="mini">添加用户</el-button>
           <el-button type="danger" size="mini">删除角色</el-button>
         </el-header>
@@ -37,19 +37,19 @@
               <div class="card-body">
                 <el-form ref="form" :model="roleForm" label-width="100px" size="mini">
                   <el-form-item label="编号：">
-                    <el-input v-model="roleForm.id" />
+                    <el-input placeholder="请输入" />
                   </el-form-item>
                   <el-form-item label="名称：">
-                    <el-input v-model="roleForm.id" />
+                    <el-input placeholder="请输入" />
                   </el-form-item>
                   <el-form-item label="类型：">
-                    <el-input v-model="roleForm.id" />
+                    <el-input placeholder="角色/分组" />
                   </el-form-item>
                   <el-form-item label="顺序：">
-                    <el-input v-model="roleForm.id" />
+                    <el-input placeholder="请输入" />
                   </el-form-item>
-                  <el-form-item label="活动形式：">
-                    <el-input v-model="roleForm.id" type="textarea" />
+                  <el-form-item label="备注：">
+                    <el-input placeholder="请输入" type="textarea" />
                   </el-form-item>
                 </el-form>
               </div>
@@ -86,7 +86,7 @@
                 <span>文档权限</span>
               </div>
               <div class="card-body">
-                <el-input v-model="filterText3" size="small" placeholder="输入关键字进行过滤" style="margin-bottom:30px;" />
+                <el-input v-model="filterText3" size="small" placeholder="请输入文件名称" style="margin-bottom:30px;" />
                 <el-tree
                   ref="tree3"
                   :data="data3"

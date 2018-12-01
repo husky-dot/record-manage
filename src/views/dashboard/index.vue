@@ -1,6 +1,7 @@
 <template>
-  <div :style="{'height': height + 'px'}" class="dashboard-container">
-    <div class="avatar-box">姓名:{{ name }}</div>
+  <div class="dashboard-container">
+    <h1 class="title">档案管理系统</h1>
+    <!-- <div class="avatar-box">姓名:{{ name }}</div> -->
   </div>
 </template>
 
@@ -31,8 +32,9 @@ export default {
   &-container {
     position: relative;
     display: block;
-    height: 100%;
+    height:calc(100vh - 85px);
     width: 100%;
+    overflow: hidden;
     align-items: center;
     box-sizing: border-box;
     background-color: #409EFF;
@@ -96,5 +98,17 @@ export default {
   100% {
       transform: translate(-50%, 0%) rotateZ(360deg);
   }
+}
+
+.title{
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%,-25%);
+  background: #EEE url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAHklEQVQImWNkYGBgYGD4//8/A5wF5SBYyAr+//8PAPOCFO0Q2zq7AAAAAElFTkSuQmCC) repeat;
+  text-shadow: 5px -5px black, 4px -4px white;
+  font-weight: bold;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 </style>

@@ -4,6 +4,7 @@
       :show-timeout="200"
       :default-active="$route.path"
       :collapse="isCollapse"
+      :default-openeds="openeds"
       mode="vertical"
       background-color="#304156"
       text-color="#bfcbd9"
@@ -20,6 +21,11 @@ import SidebarItem from './SidebarItem'
 
 export default {
   components: { SidebarItem },
+  data() {
+    return {
+      openeds: ['/manage']
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar'

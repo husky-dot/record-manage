@@ -4,11 +4,11 @@
       :title="title"
       :show="show"
       :visible.sync="visible"
-      width="35%"
+      width="50vw"
       @close="$emit('update:show', false);"
     >
       <div class="list">
-        <div v-for="item in [1,2]" :key="item" class="item">
+        <div v-for="(item, index) in list" :key="index" class="item">
           <img :src="require('@assess/avatar.jpg')" class="avatar">
           <div class="name-and-date">
             <span class="name">小智</span>
@@ -29,7 +29,7 @@
     </el-dialog>
     <el-dialog
       :visible.sync="innerVisible"
-      width="30%"
+      width="50vw"
       title="图片详情"
       class="pre-dialog"
       append-to-body>
@@ -49,6 +49,12 @@ export default {
     title: {
       type: String,
       default: '提示'
+    },
+    list: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     }
   },
   data() {
@@ -71,7 +77,8 @@ export default {
       padding: 0 !important;
     }
     .el-dialog{
-      height: 60vh;
+      height: 60vh !important;
+      overflow-y: scroll;
     }
     .list{
       padding:0 16px;

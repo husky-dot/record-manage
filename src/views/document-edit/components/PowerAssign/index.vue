@@ -3,7 +3,7 @@
     :title="title"
     :show="show"
     :visible.sync="visible"
-    width="20%"
+    width="45vw"
     @close="$emit('update:show', false);"
   >
     <div class="dialog-body">
@@ -57,7 +57,7 @@ export default {
           label: '主任',
           children: [{
             id: 9,
-            label: '小智'
+            label: '小陈'
           }]
         },
         {
@@ -76,7 +76,7 @@ export default {
           children: [
             {
               id: 9,
-              label: '陈小龙'
+              label: '小陈'
             },
             {
               id: 9,
