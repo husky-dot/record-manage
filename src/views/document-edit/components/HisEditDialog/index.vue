@@ -12,17 +12,17 @@
           <img :src="require('@assess/avatar.jpg')" class="avatar">
           <div class="name-and-date">
             <span class="name">小智</span>
-            <span class="date">2018-10-11 12:30</span>
+            <span class="date">{{ showList[index].time | formatDate }}</span>
           </div>
           <div class="open">
-            <el-button type="text" size="mini">删除</el-button>
+            <el-button type="text" size="mini" @click="handleHisDel(index)">删除</el-button>
           </div>
           <div class="content">
-            第六条水运工程施工单位应当定期组织安全生产管理人员，工程技术人员和其他相关人员排查工程项目的重大事故隐.....
+            {{ showList[index].content }}
           </div>
-          <div class="preview-img" @click="innerVisible = true">
-            <img :src="require('@assess/avatar.jpg')">
-            <p @click="innerVisible = true">查看快照</p>
+          <div class="preview-img" @click="showHugImg(showList[index])">
+            <img :src="showList[index].imgSrc">
+            <p @click="showHugImg(showList[index])">查看快照</p>
           </div>
         </div>
       </div>
@@ -34,13 +34,24 @@
       class="pre-dialog"
       append-to-body>
       <div class="preview-wrapper">
-        <img :src="require('@assess/avatar.jpg')">
+        <img :src="hugImg">
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
 export default {
+  filters: {
+    formatDate(value) {
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const h = date.getHours();
+      const m = date.getMinutes();
+      return `${year}-${month}-${day} ${h}:${m}`;
+    }
+  },
   props: {
     show: {
       type: Boolean,
@@ -60,12 +71,45 @@ export default {
   data() {
     return {
       visible: this.show,
-      innerVisible: false
+      innerVisible: false,
+      hugImg: '',
+      showList: [
+        {
+          imgSrc: require('@/assets/a1.jpg'),
+          content: ' 第六条水运工程施工单位应当定期组织安全生产管理人员，工程技术人员和其他相关人员排查工程项目的重大事故隐.....',
+          time: new Date()
+        },
+        {
+          imgSrc: require('@/assets/a2.jpg'),
+          content: ' 本办法所称重大事故隐患是指水运工程施工过程中存在的危害和整改难度较大，需要局部或者全部停止作业，并经过.....',
+          time: new Date()
+        },
+        {
+          imgSrc: require('@/assets/a3.jpg'),
+          content: ' 第三条 福建省泉州港口管理局负责本辖区水运工程生产安全重大事故隐患排查治理挂牌督办管理工作。局相关处室.....',
+          time: new Date()
+        },
+        {
+          imgSrc: require('@/assets/a4.jpg'),
+          content: ' 第七条 水运工程施工单位应及时将工程项目重大事故隐患排查治理的有关情况向建设单位报告。建设单位应积极协.....',
+          time: new Date()
+        }
+      ]
     }
   },
   watch: {
     show() {
       this.visible = this.show;
+    }
+  },
+  methods: {
+    handleHisDel(index) {
+      this.$emit('handleHisDel', index);
+    },
+    // 查看快照
+    showHugImg(item) {
+      this.innerVisible = true;
+      this.hugImg = item.imgSrc;
     }
   }
 }

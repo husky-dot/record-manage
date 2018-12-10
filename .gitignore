@@ -14,3 +14,5 @@ package-lock.json
 *.sln
 
 *.rar
+
+test.js

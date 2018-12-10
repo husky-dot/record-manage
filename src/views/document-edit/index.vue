@@ -17,11 +17,13 @@
     <!-- 固定右边 -->
     <fix-right @handleEdit="handleEdit" />
     <!-- 显示历史记录 -->
-    <his-edit-dialog :show.sync="editHisDialog" :list="hisList" title="文档历史修订记录" />
+    <his-edit-dialog :show.sync="editHisDialog" :list="hisList" title="文档历史修订记录" @handleHisDel="handleHisDel" />
     <!-- 转发文件 -->
     <transmit :show.sync="transmitDialog" title="转发文件" />
     <!-- 文件权限分配 -->
     <power-assign :show.sync="powerDialog" title="文件权限分配" />
+    <!-- 删除确认 S -->
+    <confirm-dialog :show.sync="delDialog" :content="'确定删除？'" @handleConfirm="handleDelete" />
   </div>
 </template>
 <script>
@@ -34,6 +36,7 @@ import FixRight from './components/FixRight/index'
 import HisEditDialog from './components/HisEditDialog/index'
 import Transmit from '@/components/Transmit/index'
 import PowerAssign from './components/PowerAssign/index'
+import ConfirmDialog from '@/components/ConfirmDialog'
 export default {
   components: {
     Sticky,
@@ -41,7 +44,8 @@ export default {
     FixRight,
     HisEditDialog,
     Transmit,
-    PowerAssign
+    PowerAssign,
+    ConfirmDialog
   },
   data() {
     return {
@@ -50,6 +54,8 @@ export default {
       editHisDialog: false, // 修改记录弹框
       transmitDialog: false, // 转发文件
       powerDialog: false, // 文件权限
+      delDialog: false,
+      delHisIndex: 0,
       hisList: [1],
       isEediting: false,
       content: `<div id="u520" class="ax_default _文本段落">
@@ -80,6 +86,15 @@ export default {
         this.hisList.push('1');
         this.isEediting = false;
       }
+    },
+    // 删除历史记录
+    handleHisDel(index) {
+      this.delHisIndex = index;
+      this.delDialog = true;
+    },
+    // 确认删除
+    handleDelete() {
+      this.hisList.splice(this.delHisIndex, 1);
     }
   }
 }

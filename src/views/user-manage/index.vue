@@ -24,7 +24,7 @@
     <el-main>
       <el-container>
         <el-header style="border-bottom:1px solid #f2f2f2">
-          <el-button type="primary" size="mini">添加节点</el-button>
+          <el-button type="primary" size="mini" @click="addNode">添加节点</el-button>
           <el-button size="mini">添加用户</el-button>
           <el-button type="danger" size="mini">删除角色</el-button>
         </el-header>
@@ -35,7 +35,7 @@
                 <span>角色信息</span>
               </div>
               <div class="card-body">
-                <el-form ref="form" :model="roleForm" label-width="100px" size="mini">
+                <el-form ref="form" :model="roleForm" label-width="60px" size="mini">
                   <el-form-item label="编号：">
                     <el-input placeholder="请输入" />
                   </el-form-item>
@@ -113,13 +113,20 @@
         </el-main>
       </el-container>
     </el-main>
+    <!-- 添加节点 -->
+    <add-node v-if="addNodeDialog" :show.sync="addNodeDialog" @handleAddNode="handleAddNode"/>
   </el-container>
 </template>
 
 <script type="text/ecmascript-6">
+import AddNode from './components/AddNode'
 export default {
+  components: {
+    AddNode
+  },
   data() {
     return {
+      addNodeDialog: false,
       filterText: '',
       filterText3: '',
       data1: [{
@@ -134,7 +141,7 @@ export default {
           }]
         },
         {
-          id: 66,
+          id: 5,
           label: '副主任',
           children: [
             {
@@ -144,7 +151,7 @@ export default {
           ]
         },
         {
-          id: 5,
+          id: 6,
           label: '工作人员',
           children: [
             {
@@ -281,6 +288,22 @@ export default {
     filterNode3(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
+    },
+    // 添加节点
+    addNode() {
+      this.addNodeDialog = true;
+    },
+    handleAddNode(data) {
+      console.log(data);
+      switch (data.typeId) {
+        case '6': this.data1[0].children[2].children.push(data)
+          break;
+        case '5': this.data1[0].children[1].children.push(data)
+          break;
+        case '4': this.data1[0].children[0].children.push(data)
+          break;
+      }
+      this.addNodeDialog = false;
     }
   }
 };
